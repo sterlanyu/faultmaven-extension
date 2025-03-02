@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FaultMaven Copilot - Your AI-powered troubleshooting assistant</title>
+  <link rel="stylesheet" href="sidebar.css">
+  <style>
+    /* Ensure the body takes full height and has no margin */
+    body {
+      width: 100%; /* Allow the sidebar to resize dynamically */
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch; /* Stretch children to fill width */
+      background-color: #f9f9f9;
+      border-left: 1px solid #ccc;
+    }
+
+    /* Sidebar container */
+    #sidebar-container {
+      flex: 1; /* Fill available space */
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      box-sizing: border-box; /* Include padding in width/height calculations */
+    }
+
+    /* Sidebar sections */
+    .sidebar-section {
+      margin-bottom: 20px;
+      width: 100%; /* Fill the sidebar width */
+    }
+
+    /* Textareas and buttons */
+    textarea {
+      width: 100%; /* Fill the width of the sidebar */
+      box-sizing: border-box; /* Include padding and border in width */
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical; /* Allow vertical resizing only */
+    }
+
+    button {
+      width: 100%; /* Fill the width of the sidebar */
+      padding: 10px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Response section */
+    #response-output {
+      width: 100%;
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    /* Loading indicator */
+    #loading-indicator {
+      display: none; /* Hidden by default */
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+      color: #007bff;
+    }
+  </style>
+</head>
+<body>
+  <div id="sidebar-container">
+    <div class="sidebar-section" id="query-section">
+      <h3>Ask a Question</h3>
+      <textarea id="query-input" placeholder="Type your question here..."></textarea>
+    </div>
+
+    <div class="sidebar-section" id="data-section">
+      <h3>Provide Data</h3>
+      <textarea id="data-input" placeholder="Paste logs, metrics, or monitoring data here..."></textarea>
+    </div>
+
+    <button id="submit-all">Submit</button>
+
+    <div class="sidebar-section" id="response-section">
+      <h3>FaultMaven Response</h3>
+      <div id="response-output">Awaiting input...</div>
+      <div id="loading-indicator">Loading...</div>
+    </div>
+  </div>
+
+  <script src="sidebar.js"></script>
+</body>
+</html>
+

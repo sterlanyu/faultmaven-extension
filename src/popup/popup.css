@@ -1,0 +1,79 @@
+/* src/popup/popup.css */
+
+/* Reset default styles */
+body, h1, p, button {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* General styles for the popup container */
+.popup-container {
+  width: 200px; /* Adjust width as needed */
+  padding: 16px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Header styles */
+.popup-header {
+  margin-bottom: 16px;
+}
+
+.popup-header h1 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.popup-subtitle {
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+}
+
+/* Main content styles */
+.popup-main {
+  margin-bottom: 16px;
+}
+
+.popup-button {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.popup-button:hover {
+  background-color: #0056b3;
+}
+
+.popup-button:active {
+  transform: scale(0.98);
+}
+
+.popup-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+/* Footer styles */
+.popup-footer {
+  font-size: 10px;
+  color: #999;
+}
+
+.popup-footer-text {
+  margin: 0;
+}
+
