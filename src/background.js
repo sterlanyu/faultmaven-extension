@@ -1,26 +1,9 @@
 // src/background.js
 
-// Ensure content script is injected on page load
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (changeInfo.status === "complete" && tab.url.startsWith("http")) {
-    chrome.scripting.executeScript({
-      target: { tabId: tabId },
-      files: ["src/content.js"]
-    }, () => {
-      if (chrome.runtime.lastError) {
-        console.error("Error injecting content script:", chrome.runtime.lastError.message);
-      } else {
-        console.log("Content script successfully injected into:", tab.url);
-      }
-    });
-  }
-});
-
 // Listener for extension icon click
 chrome.action.onClicked.addListener(async (tab) => {
   try {
     await chrome.sidePanel.open({ windowId: tab.windowId });
-    console.log("Side panel opened");
   } catch (error) {
     console.error("Error opening side panel:", error);
   }
@@ -30,9 +13,40 @@ chrome.action.onClicked.addListener(async (tab) => {
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   console.log("Received message in background.js:", message);
 
-  if (message.action === 'fetchData') {
+  if (message.action === "fetchData") {
     // Perform data fetching or other background tasks
     fetchDataFromAPI(message.url).then(data => sendResponse(data));
+    return true; // Indicates asynchronous response
+  }
+
+  // Handle injectContentScript message from the sidebar
+  if (message.action === "injectContentScript") {
+    // Get the active tab
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      if (tabs.length > 0) {
+        const activeTab = tabs[0];
+        // Validate the tab URL
+        if (!activeTab.url.startsWith("http")) {
+          sendResponse({ status: "error", message: "Invalid tab: Content scripts can only be injected into HTTP/HTTPS pages." });
+          return;
+        }
+        // Inject the content script into the active tab
+        chrome.scripting.executeScript({
+          target: { tabId: activeTab.id },
+          files: ["src/content.js"]
+        }, () => {
+          if (chrome.runtime.lastError) {
+            console.error("Error injecting content script:", chrome.runtime.lastError.message);
+            sendResponse({ status: "error", message: chrome.runtime.lastError.message });
+          } else {
+            console.log("Content script successfully injected into:", activeTab.url);
+            sendResponse({ status: "success", tabId: activeTab.id, url: activeTab.url });
+          }
+        });
+      } else {
+        sendResponse({ status: "error", message: "No active tab found" });
+      }
+    });
     return true; // Indicates asynchronous response
   }
 });
@@ -55,22 +69,3 @@ async function fetchDataFromAPI(url) {
     throw error;
   }
 }
-
-// Example: Listen for tab activation to inject content script
-chrome.tabs.onActivated.addListener((activeInfo) => {
-  chrome.tabs.get(activeInfo.tabId, (tab) => {
-    if (tab.url && tab.url.startsWith("http")) {
-      chrome.scripting.executeScript({
-        target: { tabId: activeInfo.tabId },
-        files: ["src/content.js"]
-      }, () => {
-        if (chrome.runtime.lastError) {
-          console.error("Error injecting content script:", chrome.runtime.lastError.message);
-        } else {
-          console.log("Content script successfully injected into:", tab.url);
-        }
-      });
-    }
-  });
-});
-

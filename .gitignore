@@ -1,0 +1,36 @@
+# Ignore macOS system files
+.DS_Store
+
+# Ignore swap files
+*.swp
+
+# Ignore log files (if any generated in the future)
+*.log
+
+# Ignore node_modules (if you're using Node.js or npm)
+node_modules/
+
+# Ignore build/temporary directories (if applicable)
+dist/
+build/
+temp/
+
+# Ignore compiled files
+*.pyc
+*.class
+
+# Ignore IDE/editor-specific files
+.vscode/
+.idea/
+
+# Ignore environment and config files (if applicable)
+.env
+*.env.local
+
+# Ignore user-specific metadata
+*.bak
+*.tmp
+
+# Ignore anything in .git folder
+.git/
+
