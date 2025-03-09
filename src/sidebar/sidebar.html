@@ -1,66 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>FaultMaven Copilot - Your AI-powered troubleshooting assistant</title>
-  <link rel="stylesheet" href="sidebar.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaultMaven Copilot</title>
+    <link rel="stylesheet" href="sidebar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
-  <div id="sidebar-container">
-    <!-- Header Section -->
-    <div class="sidebar-header">
-      <h1>FaultMaven</h1>
-      <p>Your AI-powered troubleshooting assistant</p>
+    <div id="sidebar-container">
+        <section id="conversation-section" aria-label="Conversation History">
+            <div id="conversation-history" aria-live="polite"></div>
+            <div id="loading-indicator" aria-hidden="true">Thinking...</div>
+        </section>
+
+        <section id="query-section" class="sidebar-section" aria-label="Ask a Question">
+            <h3>Ask a Question</h3>
+            <textarea id="query-input" placeholder="Type your question here..." aria-label="Enter your question"></textarea>
+            <button id="new-conversation" title="Start a new conversation">New Conversation</button>
+        </section>
+
+        <section id="data-section" class="sidebar-section" aria-label="Provide Data">
+            <h3>Provide Data</h3>
+            <form id="data-form">
+                <fieldset class="data-source-options">
+                    <legend>Select data source</legend>
+                    <label for="text-data-source">
+                        <input type="radio" id="text-data-source" name="data-source" value="text" checked>
+                        Type or Paste Text
+                    </label>
+                    <label for="file-data-source">
+                        <input type="radio" id="file-data-source" name="data-source" value="file">
+                        Upload a File
+                    </label>
+                    <label for="page-data-source">
+                        <input type="radio" id="page-data-source" name="data-source" value="page">
+                        Analyze Page Content
+                    </label>
+                </fieldset>
+                <div id="data-input-container">
+                    <textarea id="data-input" placeholder="Paste logs, metrics, or monitoring data here..."
+                        aria-label="Paste data here"></textarea>
+                    <input type="file" id="file-input" accept=".txt,.log,.json,.csv"
+                        aria-label="Select a file to upload"
+                        title="Supported formats: .txt, .log, .json, .csv">
+                    <button type="button" id="inject-button">Analyze Page Content</button>
+                    <div id="injection-status" aria-live="assertive"></div>
+                    <button id="submit-data">Submit Data</button>
+                </div>
+            </form>
+        </section>
     </div>
 
-    <!-- Query Section -->
-    <div class="sidebar-section">
-      <h3>Ask a Question</h3>
-      <textarea id="query-input" placeholder="Type your question here..."></textarea>
-    </div>
-
-    <!-- Data Section -->
-    <div class="sidebar-section">
-      <h3>Provide Data</h3>
-      <div class="data-source-options">
-        <label>
-          <input type="radio" name="data-source" value="text" checked> Type or Paste Text
-        </label>
-        <label>
-          <input type="radio" name="data-source" value="file"> Upload a File
-        </label>
-        <label>
-          <input type="radio" name="data-source" value="page"> Analyze Page Content
-        </label>
-      </div>
-
-      <!-- Text Input -->
-      <textarea id="data-input" placeholder="Paste logs, metrics, or monitoring data here..."></textarea>
-
-      <!-- File Input -->
-      <div class="file-input-container">
-        <input type="file" id="file-input" accept=".txt,.log,.json,.csv" style="display: none;" title="Supported formats: .txt, .log, .json, .csv">
-        <button id="clear-file-button" style="display: none;">Clear</button>
-      </div>
-      <!-- Analyze Page Button -->
-      <button id="inject-button" style="display: none;">Analyze Page</button>
-
-      <!-- Status Indicator -->
-      <div id="injection-status"></div>
-    </div>
-
-    <!-- Submit Button -->
-    <button id="submit-all">Submit</button>
-
-    <!-- Response Section -->
-    <div class="sidebar-section">
-      <h3>FaultMaven Response</h3>
-      <div id="response-output">Awaiting input...</div>
-      <div id="loading-indicator">Loading...</div>
-    </div>
-  </div>
-
-  <script src="sidebar.js"></script>
+    <script src="sidebar.js"></script>
 </body>
+
 </html>

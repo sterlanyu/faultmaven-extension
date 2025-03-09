@@ -1,228 +1,280 @@
-/* Global Styles */
+/* --- CSS Variables --- */
+:root {
+  /* Colors */
+  --color-bg-light-gray: #FFFDF8; /* Background: White Sand */
+  --color-text-default: #3A3F51; /* Text: Navy Gray */
+  --color-border-light-gray: #CED4DA; /* Subtle border */
+  --color-shadow-subtle: rgba(0, 0, 0, 0.1); /* Soft shadow */
+  --color-client-message: #F4E7D3; /* Client: Light Sand */
+  --color-server-message: #CDECF6; /* Server: Soft Aquamarine */
+  --color-red-light: #FDECEA; /* Error background */
+  --color-red-dark: #C0392B; /* Error text */
+  --color-text-emphasis: #2E2E2E; /* Deep Gray for important text */
+  --color-gray-dark: #34495E;
+  --color-gray-medium: #696969; /* Medium gray */
+  --color-gray-dim: #A9A9A9; /* Dim gray */
+  --color-gray-very-dark: #333333; /* Very dark gray */
+  --color-gray-loading: #E0E0E0; /* Loading gray */
+  --color-green-success: #28A745; /* Success green */
+  --color-green-bg: #E8F5E9; /* Green background */
+  --color-red-error: #DC3545; /* Error red */
+  --color-red-bg: #F8E8E8; /* Error background */
+  --color-white: #FFFFFF; /* Pure white */
+
+  /* Font Sizes */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-text: 0.875rem; /* 14px */
+  --font-size-heading: 0.9rem; /* Slightly Larger Sidebar Headings - 14.4px */
+  --font-size-small: 0.75rem; /* Slightly Larger Small Text - 12px */
+
+  /* Spacing */
+  --spacing-small: 4px; /* Slightly Tighter Spacing */
+  --spacing-medium: 8px;
+  --spacing-large: 12px;
+  --spacing-very-large: 16px; /* A little more room between client messages */
+  --spacing-extra-large: 24px;
+
+  /* Transition */
+  --transition-medium: 0.25s; /* Slightly faster transition */
+  --transition-short: 0.15s; /* Slightly faster short transition */
+}
+
+/* --- Global Styles --- */
+html {
+  font-size: var(--font-size-base);
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit; /* Inherit box-sizing for all elements */
+}
+
 body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg-light-gray); /* White Sand background */
+  color: var(--color-text-default); /* Navy Gray text */
   width: 100%;
   height: 100vh;
-  margin: 0;
-  font-family: 'Inter', Arial, sans-serif; /* Modern font */
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  background: linear-gradient(180deg, #f8f9fa, #ffffff); /* Subtle gradient */
-  border-left: 1px solid #e0e0e0; /* Subtle border */
 }
 
-/* Sidebar Container */
+/* --- Sidebar Structure --- */
 #sidebar-container {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 24px; /* Comfortable padding */
-  box-sizing: border-box;
+  height: 100%;
+  overflow-y: auto;
+  padding: var(--spacing-large);
 }
 
-/* Header Section */
-.sidebar-header {
-  text-align: center;
-  margin-bottom: 24px; /* Increased spacing */
+/* --- Conversation History --- */
+#conversation-history {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: var(--spacing-extra-large); /* Increase space below conversation history */
+  padding: var(--spacing-large);
+  background-color: var(--color-white); /* Keep clean white background for history */
+  border: 1px solid var(--color-border-light-gray);
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 2px 4px var(--color-shadow-subtle);
+  font-size: var(--font-size-text);
+  color: var(--color-text-default);
+  line-height: 1.5;
 }
 
-.sidebar-header h1 {
-  font-size: 28px; /* Larger font size */
-  color: #2c3e50; /* Dark blue-gray */
+/* --- Conversation Items --- */
+.conversation-item {
+  margin-bottom: var(--spacing-medium);
+  padding: var(--spacing-medium);
+  border-radius: 10px; /* Rounded corners */
+  word-break: break-word; /* Prevent text overflow */
+}
+
+.user-question {
+  background-color: var(--color-client-message); /* Light Sand */
+  text-align: right;
+  margin-bottom: var(--spacing-very-large); /* Add space below client message */
+  color: var(--color-text-default); /* Navy Gray text */
+  border-bottom: 1px solid var(--color-gray-dim); /* Subtle divider for clarity */
+}
+
+.faultmaven-response {
+  background-color: var(--color-server-message); /* Soft Aquamarine */
+  text-align: left;
+  color: var(--color-text-default); /* Navy Gray text */
+}
+
+.error-response {
+  background-color: var(--color-red-light); /* Error red */
+  color: var(--color-red-dark); /* Error text */
+}
+
+/* Common styles for conversation-item text */
+.conversation-item p {
   margin: 0;
-  font-weight: 600; /* Semi-bold */
+  font-size: var(--font-size-text);
+  line-height: 1.4; /* Slightly more line spacing */
 }
 
-.sidebar-header p {
-  font-size: 14px;
-  color: #7f8c8d; /* Gray */
-  margin: 8px 0 0; /* Adjusted spacing */
+.conversation-item strong {
+  color: var(--color-text-emphasis); /*  Emphasized text */
+  font-weight: 600;
 }
 
-/* Sidebar Sections */
+/* --- Sidebar Sections --- */
 .sidebar-section {
-  margin-bottom: 20px; /* Consistent spacing */
+  margin-bottom: var(--spacing-large);
 }
 
 .sidebar-section h3 {
-  font-size: 16px;
-  color: #34495e; /* Dark blue-gray */
-  margin-bottom: 12px; /* Refined spacing */
-  font-weight: 500; /* Medium weight */
-  border-bottom: 2px solid #e0e0e0; /* Light underline */
-  padding-bottom: 4px;
+  font-size: var(--font-size-heading);
+  color: var(--color-gray-dark); /* Darker Gray for better contrast */
+  margin-bottom: var(--spacing-small);
+  font-weight: 600;
+  border-bottom: 1px solid var(--color-gray-medium); /* Slightly less prominent border */
+  padding-bottom: var(--spacing-small);
 }
 
-/* Textareas */
+/* --- Data Source Options --- */
+.data-source-options {
+  border: 1px solid var(--color-border-light-gray); /* Add a border if it does not exist */
+  border-radius: calc(var(--spacing-medium) - 2px); /* Rounded corners */
+  padding: var(--spacing-medium);
+  margin-bottom: var(--spacing-medium);
+}
+
+.data-source-options label, .data-source-options legend {
+  font-size: var(--font-size-small);
+  color: var(--color-text-emphasis);
+}
+
+.data-source-options legend{
+  padding-left: var(--spacing-small);
+  padding-right: var(--spacing-small);
+}
+
+.data-source-options input[type="radio"] {
+  margin-right: var(--spacing-small);
+}
+
+/* --- Textareas --- */
 textarea {
   width: 100%;
   box-sizing: border-box;
-  padding: 12px; /* Comfortable padding */
-  font-size: 14px;
-  border: 1px solid #e0e0e0; /* Light gray border */
-  border-radius: 8px; /* Rounded corners */
-  resize: vertical;
-  background-color: #ffffff; /* White background */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+  padding: var(--spacing-large);
+  font-size: var(--font-size-text);
+  border: 1px solid var(--color-border-light-gray);
+  border-radius: 12px; /* Match the border-radius of conversation-history */
+  background-color: var(--color-white);
+  box-shadow: 0 1px 2px var(--color-shadow-subtle);
+  transition: border-color var(--transition-medium) ease, box-shadow var(--transition-medium) ease;
+  line-height: 1.4;
+  resize: vertical; /* Allow only vertical resizing */
+  margin: 0 0 var(--spacing-medium) 0; /* Add margin below textarea */
+}
+
+/* Specific styles for query input */
+#query-input {
+  border-radius: 12px; /* Match the border-radius of conversation-history */
+  margin-right: 0; /* Remove negative margin */
 }
 
 textarea:focus {
-  border-color: #007bff; /* Blue border on focus */
+  border-color: var(--color-gray-dark); /* Darker outline on focus */
   outline: none;
-  box-shadow: 0 0 6px rgba(0, 123, 255, 0.4); /* Glow effect */
+  box-shadow: 0 0 4px var(--color-gray-medium);
 }
 
-/* Buttons */
-#submit-all, #inject-button {
-  width: 100%;
-  padding: 14px; /* Comfortable padding */
-  font-size: 16px;
-  color: white;
+/* --- Buttons --- */
+button {
+  max-width: 200px; /* Shorter buttons */
+  width: fit-content; /* Shrink-wrap the button's width */
+  margin: var(--spacing-small) 0; /* Remove horizontal auto margin */
+  padding: var(--spacing-medium) var(--spacing-large); /* Add padding left/right */
+  font-size: var(--font-size-small);
+  color: var(--color-white);
+  background-color: var(--color-gray-dim);
   border: none;
-  border-radius: 8px; /* Rounded corners */
+  border-radius: calc(var(--spacing-medium) - 2px);
   cursor: pointer;
-  font-weight: 500; /* Medium weight */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+  font-weight: 600; /* Bold button text */
+  transition: background-color var(--transition-medium) ease, transform var(--transition-short) ease;
+  box-shadow: 0 1px 2px var(--color-shadow-subtle);
+  display: block; /* Ensure buttons are block-level */
+  text-align: center;
 }
 
-#submit-all {
-  background-color: #007bff; /* Blue */
-  margin-top: 8px;
+button:hover {
+  background-color: var(--color-gray-very-dark);
 }
 
-#submit-all:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+button:active {
+  transform: scale(0.98);
 }
 
-#submit-all:active {
-  transform: scale(0.98); /* Pressed effect */
-}
-
-#inject-button {
-  background-color: #28a745; /* Green */
-  font-size: 13px; /* Smaller font size */
-  padding: 8px; /* Reduced padding */
-  margin-top: 8px;
-}
-
-#inject-button:hover {
-  background-color: #218838; /* Darker green on hover */
-}
-
-#inject-button:active {
-  transform: scale(0.98); /* Pressed effect */
-}
-
-/* Response Section */
-#response-output {
-  width: 100%;
-  padding: 16px; /* Comfortable padding */
-  background-color: #ffffff; /* White background */
-  border: 1px solid #e0e0e0; /* Light gray border */
-  border-radius: 8px; /* Rounded corners */
-  box-sizing: border-box;
-  font-size: 14px;
-  color: #34495e; /* Dark blue-gray */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-}
-
-/* Loading Indicator */
+/* --- Loading Indicator --- */
 #loading-indicator {
   display: none;
   text-align: center;
-  padding: 12px; /* Comfortable padding */
-  font-size: 14px;
-  color: #007bff; /* Blue */
+  padding: var(--spacing-medium);
+  font-size: var(--font-size-small);
+  color: var(--color-gray-medium);
+  background-color: var(--color-gray-loading);
+  border-radius: calc(var(--spacing-medium) - 2px);
+  margin-bottom: var(--spacing-medium);
+  box-shadow: 0 1px 2px var(--color-shadow-subtle);
 }
 
-/* Injection Status */
+/* --- Injection Status --- */
 #injection-status {
-  margin-top: 12px; /* Refined spacing */
-  padding: 12px;
-  border-radius: 8px; /* Rounded corners */
-  text-align: center;
-  font-size: 14px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  margin-top: var(--spacing-medium);
+  padding: var(--spacing-medium);
+  border-radius: calc(var(--spacing-medium) - 2px);
+  text-align: left;
+  font-size: var(--font-size-small);
+  box-shadow: 0 1px 2px var(--color-shadow-subtle);
 }
 
 #injection-status.loading {
-  color: #007bff; /* Blue */
-  background-color: #e9f5ff; /* Light blue background */
+  color: var(--color-gray-medium);
+  background-color: var(--color-gray-loading);
 }
 
 #injection-status.success {
-  color: #28a745; /* Green */
-  background-color: #e8f5e9; /* Light green background */
+  color: var(--color-green-success);
+  background-color: var(--color-green-bg);
 }
 
 #injection-status.error {
-  color: #dc3545; /* Red */
-  background-color: #f8e8e8; /* Light red background */
+  color: var(--color-red-error);
+  background-color: var(--color-red-bg);
 }
 
-/* File Input */
+/* --- File Input --- */
 #file-input {
   width: 100%;
-  padding: 12px;
-  font-size: 14px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  background-color: #ffffff;
-  margin-top: 12px; /* Consistent spacing */
+  padding: var(--spacing-large); /* Match padding of textareas */
+  font-size: var(--font-size-small);
+  border: 1px solid var(--color-gray-medium);
+  border-radius: 12px; /* Match the border-radius of conversation-history */
+  background-color: var(--color-white);
+  margin-top: var(--spacing-medium);
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  transition: border-color 0.3s ease;
+  box-shadow: 0 1px 2px var(--color-shadow-subtle);
+  transition: border-color var(--transition-medium) ease;
+  margin: 0 0 var(--spacing-medium) 0; /* Add margin below file input */
 }
 
-#file-input:hover {
-  border-color: #007bff; /* Blue border on hover */
+#file-input:hover,
+#file-input:focus {
+  border-color: var(--color-gray-dark); /* Darker border on hover/focus */
 }
 
 #file-input:focus {
   outline: none;
-  border-color: #007bff; /* Blue border on focus */
-}
-
-/* Data Source Options */
-.data-source-options {
-  margin-bottom: 12px;
-}
-
-.data-source-options label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 14px;
-  color: #34495e;
-}
-
-.data-source-options input[type="radio"] {
-  margin-right: 8px;
-}
-
-/* Hide Elements by Default */
-#file-input, #inject-button {
-  display: none;
-}
-
-.file-input-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 8px; /* Spacing between file input and clear button */
-}
-
-.file-input-container:hover::after {
-  content: "Supported formats: .txt, .log, .json, .csv";
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: #333;
-  color: #fff;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  white-space: nowrap;
-  z-index: 10;
 }
