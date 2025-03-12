@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "FaultMaven Copilot – Your AI-powered troubleshooting assistant",
-  "version": "1.0.0",
-  "description": "Enhances FaultMaven's capabilities by providing browser-based troubleshooting support.",
+  "name": "FaultMaven Copilot",
+  "version": "1.0.1",
+  "description": "AI-powered troubleshooting assistant",
   "icons": {
     "16": "assets/icon.png",
     "48": "assets/icon.png",
@@ -12,7 +12,6 @@
     "activeTab",
     "scripting",
     "storage",
-    "tabs",
     "sidePanel"
   ],
   "background": {
@@ -25,25 +24,17 @@
   "side_panel": {
     "default_path": "src/sidebar/sidebar.html"
   },
-  "content_scripts": [
+    "web_accessible_resources": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["src/content.js"],
-      "run_at": "document_idle",
-      "all_frames": true
-    }
-  ],
-  "web_accessible_resources": [
-    {
-      "resources": ["src/sidebar/sidebar.html", "assets/*"],
+      "resources": ["src/sidebar/sidebar.html", "src/sidebar/sidebar.css", "config.js", "assets/*"],
       "matches": ["<all_urls>"]
     }
   ],
-  "host_permissions": [
-    "<all_urls>"
-  ],
-  "externally_connectable": {
-    "matches": ["<all_urls>"]
+    "host_permissions": [
+        "http://localhost:8000/*",
+        "<all_urls>"
+    ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self';"
   }
 }
-

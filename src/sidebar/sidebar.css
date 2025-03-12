@@ -1,128 +1,140 @@
 /* --- CSS Variables --- */
 :root {
   /* Colors */
-  --color-bg-light-gray: #FFFDF8; /* Background: White Sand */
-  --color-text-default: #3A3F51; /* Text: Navy Gray */
-  --color-border-light-gray: #CED4DA; /* Subtle border */
-  --color-shadow-subtle: rgba(0, 0, 0, 0.1); /* Soft shadow */
-  --color-client-message: #F4E7D3; /* Client: Light Sand */
-  --color-server-message: #CDECF6; /* Server: Soft Aquamarine */
-  --color-red-light: #FDECEA; /* Error background */
-  --color-red-dark: #C0392B; /* Error text */
-  --color-text-emphasis: #2E2E2E; /* Deep Gray for important text */
+  --color-bg-light-gray: #FFFDF8;
+  --color-text-default: #3A3F51;
+  --color-border-light-gray: #CED4DA;
+  --color-shadow-subtle: rgba(0, 0, 0, 0.1);
+  --color-user-message: #F4E7D3;
+  --color-server-message: #CDECF6;
+  --color-error-bg: #FDECEA;
+  --color-error-text: #C0392B;
+  --color-text-emphasis: #2E2E2E;
   --color-gray-dark: #34495E;
-  --color-gray-medium: #696969; /* Medium gray */
-  --color-gray-dim: #A9A9A9; /* Dim gray */
-  --color-gray-very-dark: #333333; /* Very dark gray */
-  --color-gray-loading: #E0E0E0; /* Loading gray */
-  --color-green-success: #28A745; /* Success green */
-  --color-green-bg: #E8F5E9; /* Green background */
-  --color-red-error: #DC3545; /* Error red */
-  --color-red-bg: #F8E8E8; /* Error background */
-  --color-white: #FFFFFF; /* Pure white */
+  --color-gray-medium: #696969;
+  --color-gray-dim: #A9A9A9;
+  --color-gray-very-dark: #333333;
+  --color-loading-bg: #E0E0E0;
+  --color-success-text: #28A745;
+  --color-success-bg: #E8F5E9;
+  --color-white: #FFFFFF;
 
   /* Font Sizes */
-  --font-size-base: 1rem; /* 16px */
+  --font-size-base: 1rem;   /* 16px */
   --font-size-text: 0.875rem; /* 14px */
-  --font-size-heading: 0.9rem; /* Slightly Larger Sidebar Headings - 14.4px */
-  --font-size-small: 0.75rem; /* Slightly Larger Small Text - 12px */
+  --font-size-heading: 0.9rem;
+  --font-size-small: 0.75rem;
 
   /* Spacing */
-  --spacing-small: 4px; /* Slightly Tighter Spacing */
+  --spacing-small: 4px;
   --spacing-medium: 8px;
   --spacing-large: 12px;
-  --spacing-very-large: 16px; /* A little more room between client messages */
+  --spacing-very-large: 16px;
   --spacing-extra-large: 24px;
 
   /* Transition */
-  --transition-medium: 0.25s; /* Slightly faster transition */
-  --transition-short: 0.15s; /* Slightly faster short transition */
+  --transition-medium: 0.25s;
+  --transition-short: 0.15s;
 }
 
 /* --- Global Styles --- */
 html {
   font-size: var(--font-size-base);
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  box-sizing: border-box;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: inherit; /* Inherit box-sizing for all elements */
+*, *::before, *::after {
+  box-sizing: inherit;
 }
 
 body {
   font-family: 'Segoe UI', sans-serif;
   margin: 0;
-  padding: 0;
-  background-color: var(--color-bg-light-gray); /* White Sand background */
-  color: var(--color-text-default); /* Navy Gray text */
+  background-color: var(--color-bg-light-gray);
+  color: var(--color-text-default);
   width: 100%;
-  height: 100vh;
+  height: 100vh; /*Use viewport height */
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* Stack elements vertically */
+  overflow: hidden; /* Prevent scrolling on body */
+
 }
 
 /* --- Sidebar Structure --- */
 #sidebar-container {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  overflow-y: auto;
+  height: 100%; /*Fill the available space*/
   padding: var(--spacing-large);
+  overflow: hidden; /* Hide overflow to prevent double scrollbars */
 }
 
 /* --- Conversation History --- */
 #conversation-history {
-  flex: 1;
-  overflow-y: auto;
-  margin-bottom: var(--spacing-extra-large); /* Increase space below conversation history */
-  padding: var(--spacing-large);
-  background-color: var(--color-white); /* Keep clean white background for history */
-  border: 1px solid var(--color-border-light-gray);
-  border-radius: 12px; /* Rounded corners */
-  box-shadow: 0 2px 4px var(--color-shadow-subtle);
+  flex: 1; /* Grow to fill available space */
+  overflow-y: auto; /* Enable scrolling for conversation */
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ced4da; /* Lighter border */
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Softer shadow */
   font-size: var(--font-size-text);
-  color: var(--color-text-default);
   line-height: 1.5;
 }
-
-/* --- Conversation Items --- */
+/* Conversation Items */
 .conversation-item {
-  margin-bottom: var(--spacing-medium);
-  padding: var(--spacing-medium);
-  border-radius: 10px; /* Rounded corners */
+  margin-bottom: 8px;
+  padding: 8px;
+  border-radius: 4px;
   word-break: break-word; /* Prevent text overflow */
 }
-
+/* --- Conversation Items --- */
 .user-question {
-  background-color: var(--color-client-message); /* Light Sand */
-  text-align: right;
-  margin-bottom: var(--spacing-very-large); /* Add space below client message */
-  color: var(--color-text-default); /* Navy Gray text */
-  border-bottom: 1px solid var(--color-gray-dim); /* Subtle divider for clarity */
+  text-align: right;  /* Keep user questions right-aligned */
+  margin-left: 20px;  /* Add left margin for user questions */
+  background-color: #e0f7fa;
+  margin-bottom: var(--spacing-very-large);
 }
 
 .faultmaven-response {
-  background-color: var(--color-server-message); /* Soft Aquamarine */
-  text-align: left;
-  color: var(--color-text-default); /* Navy Gray text */
+  text-align: left;   /* Keep FaultMaven responses left-aligned */
+  margin-right: 20px; /* Add right margin for FaultMaven responses */
+  background-color: #e8f5e9;
 }
 
 .error-response {
-  background-color: var(--color-red-light); /* Error red */
-  color: var(--color-red-dark); /* Error text */
+  text-align: left;  /* Keep error messages left-aligned */
+   margin-right: 20px;
+  background-color: #ffebee;
+  color:#b71c1c;
+}
+
+/*Ensure list items are displayed correctly */
+.faultmaven-response ol,
+.faultmaven-response ul {
+list-style-position: inside; /* Ensure numbers/bullets are inside */
+padding-left: 20px; /* Add some padding for visual clarity */
+}
+
+.faultmaven-response li {
+  margin-bottom: 5px; /* Add space between the list items. */
+}
+
+.error-response {
+  background-color: var(--color-error-bg);
+  color: var(--color-error-text);
 }
 
 /* Common styles for conversation-item text */
 .conversation-item p {
   margin: 0;
   font-size: var(--font-size-text);
-  line-height: 1.4; /* Slightly more line spacing */
+  line-height: 1.4;
 }
 
 .conversation-item strong {
-  color: var(--color-text-emphasis); /*  Emphasized text */
+  color: var(--color-text-emphasis);
   font-weight: 600;
 }
 
@@ -133,29 +145,26 @@ body {
 
 .sidebar-section h3 {
   font-size: var(--font-size-heading);
-  color: var(--color-gray-dark); /* Darker Gray for better contrast */
+  color: var(--color-gray-dark);
   margin-bottom: var(--spacing-small);
   font-weight: 600;
-  border-bottom: 1px solid var(--color-gray-medium); /* Slightly less prominent border */
+  border-bottom: 1px solid var(--color-gray-medium);
   padding-bottom: var(--spacing-small);
 }
 
 /* --- Data Source Options --- */
 .data-source-options {
-  border: 1px solid var(--color-border-light-gray); /* Add a border if it does not exist */
-  border-radius: calc(var(--spacing-medium) - 2px); /* Rounded corners */
-  padding: var(--spacing-medium);
-  margin-bottom: var(--spacing-medium);
+border: 1px solid var(--color-border-light-gray); /* Add a border if it does not exist */
+border-radius: calc(var(--spacing-medium) - 2px); /* Rounded corners */
+padding: var(--spacing-medium);
+margin-bottom: var(--spacing-medium);
 }
 
-.data-source-options label, .data-source-options legend {
+.data-source-options label {
   font-size: var(--font-size-small);
   color: var(--color-text-emphasis);
-}
-
-.data-source-options legend{
-  padding-left: var(--spacing-small);
-  padding-right: var(--spacing-small);
+  display: block; /* Stack labels vertically */
+  margin-bottom: var(--spacing-small);
 }
 
 .data-source-options input[type="radio"] {
@@ -165,47 +174,40 @@ body {
 /* --- Textareas --- */
 textarea {
   width: 100%;
-  box-sizing: border-box;
   padding: var(--spacing-large);
   font-size: var(--font-size-text);
   border: 1px solid var(--color-border-light-gray);
-  border-radius: 12px; /* Match the border-radius of conversation-history */
+  border-radius: 12px;
   background-color: var(--color-white);
   box-shadow: 0 1px 2px var(--color-shadow-subtle);
   transition: border-color var(--transition-medium) ease, box-shadow var(--transition-medium) ease;
   line-height: 1.4;
-  resize: vertical; /* Allow only vertical resizing */
-  margin: 0 0 var(--spacing-medium) 0; /* Add margin below textarea */
-}
-
-/* Specific styles for query input */
-#query-input {
-  border-radius: 12px; /* Match the border-radius of conversation-history */
-  margin-right: 0; /* Remove negative margin */
+  resize: vertical;
+  margin: 0 0 var(--spacing-medium) 0;
 }
 
 textarea:focus {
-  border-color: var(--color-gray-dark); /* Darker outline on focus */
+  border-color: var(--color-gray-dark);
   outline: none;
   box-shadow: 0 0 4px var(--color-gray-medium);
 }
 
 /* --- Buttons --- */
 button {
-  max-width: 200px; /* Shorter buttons */
-  width: fit-content; /* Shrink-wrap the button's width */
-  margin: var(--spacing-small) 0; /* Remove horizontal auto margin */
-  padding: var(--spacing-medium) var(--spacing-large); /* Add padding left/right */
+  max-width: 200px;
+  width: fit-content;
+  margin: var(--spacing-small) 0;
+  padding: var(--spacing-medium) var(--spacing-large);
   font-size: var(--font-size-small);
   color: var(--color-white);
   background-color: var(--color-gray-dim);
   border: none;
   border-radius: calc(var(--spacing-medium) - 2px);
   cursor: pointer;
-  font-weight: 600; /* Bold button text */
+  font-weight: 600;
   transition: background-color var(--transition-medium) ease, transform var(--transition-short) ease;
   box-shadow: 0 1px 2px var(--color-shadow-subtle);
-  display: block; /* Ensure buttons are block-level */
+  display: block;
   text-align: center;
 }
 
@@ -219,12 +221,12 @@ button:active {
 
 /* --- Loading Indicator --- */
 #loading-indicator {
-  display: none;
+  display: none;  /* Hidden by default */
   text-align: center;
   padding: var(--spacing-medium);
   font-size: var(--font-size-small);
   color: var(--color-gray-medium);
-  background-color: var(--color-gray-loading);
+  background-color: var(--color-loading-bg);
   border-radius: calc(var(--spacing-medium) - 2px);
   margin-bottom: var(--spacing-medium);
   box-shadow: 0 1px 2px var(--color-shadow-subtle);
@@ -235,46 +237,76 @@ button:active {
   margin-top: var(--spacing-medium);
   padding: var(--spacing-medium);
   border-radius: calc(var(--spacing-medium) - 2px);
-  text-align: left;
+  text-align: left; /* Keep text left-aligned */
   font-size: var(--font-size-small);
   box-shadow: 0 1px 2px var(--color-shadow-subtle);
 }
 
 #injection-status.loading {
   color: var(--color-gray-medium);
-  background-color: var(--color-gray-loading);
+  background-color: var(--color-loading-bg);
 }
 
 #injection-status.success {
-  color: var(--color-green-success);
-  background-color: var(--color-green-bg);
+  color: var(--color-success-text);
+  background-color: var(--color-success-bg);
 }
 
 #injection-status.error {
-  color: var(--color-red-error);
-  background-color: var(--color-red-bg);
+  color: var(--color-error-text);
+  background-color: var(--color-error-bg);
 }
 
 /* --- File Input --- */
 #file-input {
   width: 100%;
-  padding: var(--spacing-large); /* Match padding of textareas */
+  padding: var(--spacing-large);
   font-size: var(--font-size-small);
   border: 1px solid var(--color-gray-medium);
-  border-radius: 12px; /* Match the border-radius of conversation-history */
+  border-radius: 12px;
   background-color: var(--color-white);
   margin-top: var(--spacing-medium);
   cursor: pointer;
   box-shadow: 0 1px 2px var(--color-shadow-subtle);
   transition: border-color var(--transition-medium) ease;
-  margin: 0 0 var(--spacing-medium) 0; /* Add margin below file input */
+  margin: 0 0 var(--spacing-medium) 0;
 }
 
 #file-input:hover,
 #file-input:focus {
-  border-color: var(--color-gray-dark); /* Darker border on hover/focus */
+  border-color: var(--color-gray-dark);
 }
 
 #file-input:focus {
   outline: none;
+}
+
+/* --- FaultMaven List Styles --- */
+.faultmaven-response ul, 
+.faultmaven-response ol {
+  list-style-position: outside; /* Change from inside to outside */
+  padding-left: 2em; /* Increase padding to accommodate the bullet/number */
+  margin: 0;
+  margin-bottom: 4px;
+}
+
+.faultmaven-response li {
+  margin-bottom: 3px;
+  padding-left: 0.5em; /* Add some padding between bullet and text */
+}
+
+/* --- Paragraph Styling --- */
+.faultmaven-response p {
+    margin-bottom: 4px; /* Tighter spacing between paragraphs */
+    line-height: 1.4; /* Compact yet readable line spacing */
+}
+
+/* --- Alignment for Responses --- */
+.faultmaven-response {
+    text-align: left; 
+}
+
+/* --- Alignment for User Questions --- */
+.user-question {
+    text-align: right; 
 }
